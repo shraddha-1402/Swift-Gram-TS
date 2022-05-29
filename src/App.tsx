@@ -1,19 +1,32 @@
-import React from "react";
 import "./App.css";
-import { Paper } from "@mui/material";
-import { Button } from "@mui/material";
+import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { Box, Stack, CssBaseline, Toolbar } from "@mui/material";
+import { getAllPosts, getAllUsers } from "./features";
+import { Bottombar, LeftSidebar, RightSidebar, Navbar } from "./components";
 import { useAppDispatch } from "./app/hooks";
-import { toggleDarkMode } from "./features";
 
 function App() {
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllUsers());
+    dispatch(getAllPosts());
+  }, [dispatch]);
 
   return (
-    <Paper sx={{ width: "50vw", height: "50vh" }}>
-      <Button onClick={() => dispatch(toggleDarkMode())} variant="contained">
-        Toggle Theme
-      </Button>
-    </Paper>
+    <Box className="App">
+      <Navbar />
+      <CssBaseline />
+      <Stack flexDirection="row" justifyContent="space-between">
+        <LeftSidebar />
+        <Box sx={{ width: { xs: "100%", md: `calc(100% - 480px)` } }}>
+          <Toolbar />
+          <Outlet />
+        </Box>
+        <RightSidebar />
+      </Stack>
+      <Bottombar />
+    </Box>
   );
 }
 

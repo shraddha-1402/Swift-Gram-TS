@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import {
   Route,
   BrowserRouter as Router,
@@ -6,6 +6,17 @@ import {
 } from "react-router-dom";
 
 import App from "./App";
+import { PrivateRoute } from "./components";
+import {
+  HomePage,
+  ProfilePage,
+  Bookmark,
+  Explore,
+  Signin,
+  Signup,
+  SinglePostPage,
+  PageNotFound,
+} from "./features";
 import { useAppSelector } from "./app/hooks";
 import { LocalRoutes } from "./constants";
 
@@ -32,18 +43,46 @@ const Routes = () => {
   });
 
   return (
-    <Router>
-      <RoutesContainer>
-        <Route
-          path={LocalRoutes.HOME}
-          element={
-            <ThemeProvider theme={theme}>
-              <App />
-            </ThemeProvider>
-          }
-        />
-      </RoutesContainer>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+
+      <Router>
+        <RoutesContainer>
+          <Route
+            element={
+              <ThemeProvider theme={theme}>
+                <PrivateRoute />
+              </ThemeProvider>
+            }
+          >
+            <Route element={<App />}>
+              <Route path={LocalRoutes.HOME} element={<HomePage />} />
+              <Route
+                path={`${LocalRoutes.PROFILE}/:username`}
+                element={<ProfilePage />}
+              />
+              <Route path={LocalRoutes.BOOKMARKS} element={<Bookmark />} />
+              <Route
+                path={`${LocalRoutes.SINGLE_POST}/:postId`}
+                element={<SinglePostPage />}
+              />
+              <Route path={LocalRoutes.EXPLORE} element={<Explore />} />s
+            </Route>
+          </Route>
+          <Route
+            element={
+              <ThemeProvider theme={theme}>
+                <PrivateRoute authRoute={true} />
+              </ThemeProvider>
+            }
+          >
+            <Route path={LocalRoutes.SIGNIN} element={<Signin />} />
+            <Route path={LocalRoutes.SIGNUP} element={<Signup />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </RoutesContainer>
+      </Router>
+    </ThemeProvider>
   );
 };
 
