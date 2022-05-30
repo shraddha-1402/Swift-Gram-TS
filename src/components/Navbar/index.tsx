@@ -32,8 +32,14 @@ const Navbar = () => {
         backgroundColor: theme.palette.background.default,
         color: theme.palette.primary.main,
       }}
+      onClick={() => navigate(LocalRoutes.HOME)}
     >
-      <Typography component="h1" noWrap>
+      <Typography
+        sx={{ cursor: "pointer", fontWeight: "bold" }}
+        variant="h4"
+        component="h1"
+        noWrap
+      >
         Swift Gram
       </Typography>
       <Stack direction="row" spacing={1}>
