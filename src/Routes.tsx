@@ -48,13 +48,7 @@ const Routes = () => {
 
       <Router>
         <RoutesContainer>
-          <Route
-            element={
-              <ThemeProvider theme={theme}>
-                <PrivateRoute />
-              </ThemeProvider>
-            }
-          >
+          <Route element={<PrivateRoute />}>
             <Route element={<App />}>
               <Route path={LocalRoutes.HOME} element={<HomePage />} />
               <Route
@@ -69,13 +63,7 @@ const Routes = () => {
               <Route path={LocalRoutes.EXPLORE} element={<Explore />} />s
             </Route>
           </Route>
-          <Route
-            element={
-              <ThemeProvider theme={theme}>
-                <PrivateRoute authRoute={true} />
-              </ThemeProvider>
-            }
-          >
+          <Route element={<PrivateRoute authRoute={true} />}>
             <Route path={LocalRoutes.SIGNIN} element={<Signin />} />
             <Route path={LocalRoutes.SIGNUP} element={<Signup />} />
           </Route>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { isLoginData } from "../../types/typeGuards";
 import { Auth } from "../../types/types";
 const getSMLoginData = () => {
