@@ -1,14 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Paper,
-  Typography,
-  Stack,
-  TextField,
-  useTheme,
-} from "@mui/material";
+import { Box, Paper, Typography, Stack, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { LocalRoutes, testLoginCredentials } from "../../constants";
 import { HeroSection } from "./components/HeroSection";
@@ -39,8 +32,6 @@ const Signin = () => {
   const handleTestSignin = () => {
     dispatch(signInUser(testLoginCredentials));
   };
-
-  const theme = useTheme();
 
   return (
     <Stack>
