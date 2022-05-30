@@ -71,7 +71,7 @@ const PostCreateCard = ({
               onChange={(e) => setPostContent(e.target.value)}
             />
           </Box>
-          <Stack position="relative">
+          <Stack direction="row-reverse">
             <EmojiPopover setPostContent={setPostContent} />
           </Stack>
         </Box>

@@ -27,15 +27,11 @@ const EmojiPopover = ({
 
   return (
     <div>
-      <IconButton
-        onClick={handleClick}
-        sx={{ alignSelf: "flex-end", marginBottom: "0.5rem" }}
-      >
+      <IconButton onClick={handleClick} sx={{ marginBottom: "0.5rem" }}>
         <EmojiEmotionsIcon />
       </IconButton>
 
       <Popover
-        disableScrollLock
         id={id}
         open={open}
         anchorEl={anchorEl}
