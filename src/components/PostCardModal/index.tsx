@@ -10,9 +10,20 @@ const iconStyle = {
   marginRight: "0.5rem",
 };
 
-const PostCardModal = ({ post }: { post: Posts.Post }) => {
+const PostCardModal = ({
+  post,
+  handleClose,
+}: {
+  post: Posts.Post;
+  handleClose: () => void;
+}) => {
   const handleCloseModal = () => {
     setOpenEditPostModal(false);
+    handleClose();
+  };
+
+  const handleEditPostModal = () => {
+    setOpenEditPostModal(true);
   };
   const [openEditPostModal, setOpenEditPostModal] = useState(false);
 
@@ -21,7 +32,7 @@ const PostCardModal = ({ post }: { post: Posts.Post }) => {
       <ListItem disablePadding>
         <ListItemButton
           sx={{ padding: "0.25rem 0.5rem", borderRadius: "0.25rem" }}
-          onClick={() => setOpenEditPostModal(true)}
+          onClick={handleEditPostModal}
         >
           <ModeEditIcon sx={{ ...iconStyle }} />
           Edit
