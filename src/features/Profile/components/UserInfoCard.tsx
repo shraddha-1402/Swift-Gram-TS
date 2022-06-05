@@ -2,6 +2,8 @@ import React from "react";
 import { Paper, Stack, Avatar, Typography } from "@mui/material";
 import { UserAction } from "./UserAction";
 import { useAppSelector } from "../../../app/hooks";
+import { FollowingTab } from "./FollowingTab";
+import { FollowersTab } from "./FollowersTab";
 
 const numberTypo = {
   fontWeight: "bold",
@@ -37,7 +39,7 @@ const UserInfoCard = () => {
             width: { xs: "5rem", sm: "6rem" },
             height: { xs: "5rem", sm: "6rem" },
           }}
-          src={currUser?.avatarURL}
+          src={currUser.avatarURL}
         />
         <Stack
           sx={{
@@ -54,43 +56,43 @@ const UserInfoCard = () => {
             sx={{ marginBottom: { xs: "0.25rem", sm: "0.5rem" } }}
           >
             <Typography noWrap sx={{ fontSize: "1em", fontWeight: "bold" }}>
-              @{currUser?.username}
+              @{currUser.username}
             </Typography>
-            <UserAction screenSize={"sm"} />
+            <UserAction screenSize={"sm"} user={currUser} />
           </Stack>
           <Stack direction="row" flexWrap="wrap" justifyContent="space-between">
             <Stack alignItems="center" sx={{ cursor: "pointer" }}>
               <Typography sx={{ ...numberTypo }}>
-                {currUserPosts?.length}
+                {currUserPosts.length}
               </Typography>
               <Typography sx={{ ...textTypo }}>Posts</Typography>
             </Stack>
             <Stack alignItems="center" sx={{ cursor: "pointer" }}>
               <Typography sx={{ ...numberTypo }}>
-                {currUser?.followers?.length}
+                {currUser.followers.length}
               </Typography>
-              <Typography sx={{ ...textTypo }}>Followers</Typography>
+              <FollowersTab profileUser={currUser} textTypo={textTypo} />
             </Stack>
             <Stack alignItems="center" sx={{ cursor: "pointer" }}>
               <Typography sx={{ ...numberTypo }}>
-                {currUser?.following?.length}
+                {currUser.following.length}
               </Typography>
-              <Typography sx={{ ...textTypo }}>Following</Typography>
+              <FollowingTab profileUser={currUser} textTypo={textTypo} />
             </Stack>
           </Stack>
         </Stack>
       </Stack>
 
       <Typography noWrap sx={{ fontWeight: "bold", margin: "0.5rem 0" }}>
-        {currUser?.firstName} {currUser?.lastName}
+        {currUser.firstName} {currUser.lastName}
       </Typography>
-      <Typography sx={{ ...bioStyle }}>{currUser?.bio}</Typography>
+      <Typography sx={{ ...bioStyle }}>{currUser.bio}</Typography>
       <Typography sx={{ ...bioStyle }}>
-        <a target="_blank" rel="noreferrer" href={`${currUser?.website}`}>
-          {currUser?.website}
+        <a target="_blank" rel="noreferrer" href={`${currUser.website}`}>
+          {currUser.website}
         </a>
       </Typography>
-      <UserAction screenSize={"xs"} />
+      <UserAction screenSize={"xs"} user={currUser} />
     </Paper>
   );
 };

@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Button, IconButton, Box } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { signOutUser } from "../..";
+import { signOutUser, unfollowUser, followUserMethod } from "../..";
 import { EditProfileModal } from "./EditProfileModal";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Auth } from "../../../types";
 
-const UserAction = ({ screenSize }: { screenSize: string }) => {
+const UserAction = ({
+  screenSize,
+  user,
+}: {
+  screenSize: string;
+  user: Auth.User;
+}) => {
   const dispatch = useAppDispatch();
   const { userDetails: currUser } = useAppSelector((store) => store.profile);
-  const { user: authUser } = useAppSelector((store) => store.auth);
-  if (authUser === null) throw new Error("authUser null");
+  const { users, isUserContentLoading } = useAppSelector(
+    (store) => store.users
+  );
+  const { user: authUser, token } = useAppSelector((store) => store.auth);
+  if (authUser === null || token === null)
+    throw new Error("authUser or token null");
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const [isLoggedUserSame, setIsLoggedUserSame] = useState(
     Boolean(currUser.username === authUser.username)
@@ -18,6 +30,19 @@ const UserAction = ({ screenSize }: { screenSize: string }) => {
   useEffect(() => {
     setIsLoggedUserSame(Boolean(currUser.username === authUser.username));
   }, [currUser, authUser]);
+
+  useEffect(() => {
+    setIsFollowing(
+      Boolean(authUser.following.find(({ _id }) => _id === user._id))
+    );
+  }, [users, authUser, user]);
+
+  const handleFollowUnfollowCLick = () => {
+    if (isFollowing)
+      dispatch(unfollowUser({ followUserId: user._id, token, dispatch }));
+    else
+      dispatch(followUserMethod({ followUserId: user._id, token, dispatch }));
+  };
 
   const boxStyle =
     screenSize === "xs"
@@ -44,9 +69,11 @@ const UserAction = ({ screenSize }: { screenSize: string }) => {
           variant="outlined"
           size="small"
           color="primary"
-          sx={{ ...btnStyle }}
+          sx={{ ...btnStyle, textTransform: "none" }}
+          onClick={handleFollowUnfollowCLick}
+          disabled={isUserContentLoading}
         >
-          Follow
+          {isFollowing ? "Unfollow" : "Follow"}
         </Button>
       )}
       {isLoggedUserSame && (
