@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
-  Button,
   Drawer,
   List,
   ListItem,
@@ -15,6 +14,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
+import { PostCreateModal } from "../PostCreateModal";
 import { LocalRoutes } from "../../constants";
 const drawerWidth = 200;
 
@@ -75,18 +75,7 @@ const LeftSidebar = () => {
           </ListItemButton>
         </ListItem>
 
-        {currPath === "home" ? null : (
-          <ListItem sx={{ margin: "1rem 0" }}>
-            <Button
-              variant="contained"
-              disableElevation
-              sx={{ width: "100%" }}
-              onClick={() => navigate(LocalRoutes.HOME)}
-            >
-              Post
-            </Button>
-          </ListItem>
-        )}
+        {currPath === "home" ? null : <PostCreateModal screenSize="md" />}
       </List>
     </Drawer>
   );

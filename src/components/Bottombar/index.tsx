@@ -4,11 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PersonIcon from "@mui/icons-material/Person";
 import { LocalRoutes } from "../../constants";
 import { useAppSelector } from "../../app/hooks";
+import { PostCreateModal } from "../PostCreateModal";
 
 const Bottombar = () => {
   const { user: authUser } = useAppSelector((store) => store.auth);
@@ -52,10 +52,7 @@ const Bottombar = () => {
           icon={<ExploreIcon />}
           onClick={() => navigate(LocalRoutes.EXPLORE)}
         />
-        <BottomNavigationAction
-          icon={<AddCircleIcon />}
-          onClick={() => navigate(LocalRoutes.HOME)}
-        />
+        <PostCreateModal screenSize="xs" />
         <BottomNavigationAction
           icon={<HomeIcon />}
           onClick={() => navigate(LocalRoutes.HOME)}

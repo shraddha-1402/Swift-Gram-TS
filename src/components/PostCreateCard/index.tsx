@@ -23,6 +23,13 @@ const PostCreateCard = ({
   const { isPostContentLoading } = useAppSelector((store) => store.posts);
   const dispatch = useAppDispatch();
 
+  const handleBackdropClose = () => {
+    if (!isPostContentLoading) {
+      setPostContent("");
+      closeBackdrop && closeBackdrop();
+    }
+  };
+
   const handleEditPost = () => {
     if (post)
       dispatch(
@@ -32,15 +39,12 @@ const PostCreateCard = ({
           token,
         })
       );
-    if (!isPostContentLoading) {
-      setPostContent("");
-      closeBackdrop && closeBackdrop();
-    }
+    handleBackdropClose();
   };
 
   const handlePublishPost = () => {
     dispatch(publishSinglePost({ postContent, token }));
-    if (!isPostContentLoading) setPostContent("");
+    handleBackdropClose();
   };
 
   return (
