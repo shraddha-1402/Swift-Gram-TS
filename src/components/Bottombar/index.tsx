@@ -19,10 +19,10 @@ const Bottombar = () => {
   useEffect(() => {
     switch (pathname.split("/")[1]) {
       case "explore":
-        setValue(0);
+        setValue(1);
         break;
       case "home":
-        setValue(2);
+        setValue(0);
         break;
       case "bookmarks":
         setValue(3);
@@ -49,14 +49,15 @@ const Bottombar = () => {
     >
       <BottomNavigation showLabels value={value}>
         <BottomNavigationAction
+          icon={<HomeIcon />}
+          onClick={() => navigate(LocalRoutes.HOME)}
+        />
+        <BottomNavigationAction
           icon={<ExploreIcon />}
           onClick={() => navigate(LocalRoutes.EXPLORE)}
         />
         <PostCreateModal screenSize="xs" />
-        <BottomNavigationAction
-          icon={<HomeIcon />}
-          onClick={() => navigate(LocalRoutes.HOME)}
-        />
+
         <BottomNavigationAction
           icon={<BookmarkIcon />}
           onClick={() => navigate(LocalRoutes.BOOKMARKS)}

@@ -44,64 +44,76 @@ const Middlebar = () => {
   };
 
   return (
-    <Stack
-      direction="row"
-      spacing={2}
-      overflow="auto"
-      sx={{
-        display: { xs: "flex", md: "none" },
-        maxWidth: "35rem",
-        margin: "2rem auto",
-        padding: "0.5rem",
-      }}
-    >
-      {suggestedUsers.map(
-        ({ _id, username, firstName, lastName, avatarURL }) => (
-          <Paper
-            key={_id}
-            elevation={2}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "10rem",
-              minWidth: "8rem",
-            }}
-          >
-            <Stack alignItems="center" spacing={1}>
-              <Box
-                sx={{ cursor: "pointer" }}
-                onClick={() => navigate(`${LocalRoutes.PROFILE}/${username}`)}
+    <>
+      {!!suggestedUsers.length ? (
+        <Stack
+          direction="row"
+          spacing={2}
+          overflow="auto"
+          sx={{
+            display: { xs: "flex", md: "none" },
+            maxWidth: "35rem",
+            margin: "2rem auto",
+            padding: "0.5rem",
+          }}
+        >
+          {suggestedUsers.map(
+            ({ _id, username, firstName, lastName, avatarURL }) => (
+              <Paper
+                key={_id}
+                elevation={2}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "10rem",
+                  minWidth: "8rem",
+                }}
               >
-                <Avatar
-                  sx={{ width: "3.5rem", height: "3.5rem", margin: "0 auto" }}
-                  src={avatarURL}
-                />
-                <Typography
-                  sx={{
-                    width: "6.5rem",
-                    textAlign: "center",
-                  }}
-                  noWrap
-                >
-                  {firstName} {lastName}
-                </Typography>
-              </Box>
+                <Stack alignItems="center" spacing={1}>
+                  <Box
+                    sx={{ cursor: "pointer" }}
+                    onClick={() =>
+                      navigate(`${LocalRoutes.PROFILE}/${username}`)
+                    }
+                  >
+                    <Avatar
+                      sx={{
+                        width: "3.5rem",
+                        height: "3.5rem",
+                        margin: "0 auto",
+                      }}
+                      src={avatarURL}
+                    />
+                    <Typography
+                      sx={{
+                        width: "6.5rem",
+                        textAlign: "center",
+                      }}
+                      noWrap
+                    >
+                      {firstName} {lastName}
+                    </Typography>
+                  </Box>
 
-              <Button
-                onClick={() => handleFollowUser(_id)}
-                disabled={isUserContentLoading}
-                sx={{ textTransform: "none" }}
-                size="small"
-                variant="outlined"
-              >
-                Follow
-              </Button>
-            </Stack>
-          </Paper>
-        )
+                  <Button
+                    onClick={() => handleFollowUser(_id)}
+                    disabled={isUserContentLoading}
+                    sx={{ textTransform: "none" }}
+                    size="small"
+                    variant="outlined"
+                  >
+                    Follow
+                  </Button>
+                </Stack>
+              </Paper>
+            )
+          )}
+        </Stack>
+      ) : (
+        <></>
       )}
-    </Stack>
+    </>
   );
 };
 

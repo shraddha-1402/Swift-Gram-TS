@@ -56,15 +56,13 @@ const Navbar = () => {
           {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
         <IconButton
+          sx={{ display: { xs: "none", md: "block" } }}
           onClick={() => {
             console.log(`${LocalRoutes.PROFILE}/${authUser.username}`);
             navigate(`${LocalRoutes.PROFILE}/${authUser.username}`);
           }}
         >
-          <Avatar
-            src={authUser.avatarURL}
-            sx={{ display: { xs: "none", md: "block" } }}
-          />
+          <Avatar src={authUser.avatarURL} />
         </IconButton>
       </Stack>
     </MuiAppBar>
