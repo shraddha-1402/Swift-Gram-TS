@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import {
   List,
   ListItem,
   ListItemButton,
   IconButton,
   Popover,
+  Stack,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,9 +30,13 @@ const PostCardPopover = ({ post }: { post: Posts.Post }) => {
 
   const handlePostDelete = () => {
     dispatch(deleteSinglePost({ postId: post._id, token }));
+    handleClose();
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const open = Boolean(anchorEl);
@@ -39,7 +44,7 @@ const PostCardPopover = ({ post }: { post: Posts.Post }) => {
 
   return (
     <>
-      <IconButton>
+      <IconButton onClick={handleClick}>
         <MoreHorizIcon />
       </IconButton>
       <Popover
@@ -57,17 +62,13 @@ const PostCardPopover = ({ post }: { post: Posts.Post }) => {
           horizontal: "right",
         }}
       >
-        <IconButton
-          sx={{
-            position: "absolute",
-            right: "0rem",
-            top: "0rem",
-          }}
-        >
-          <CloseIcon sx={{ width: "1.1rem", height: "1.1rem" }} />
-        </IconButton>
-        <List>
-          <PostCardModal post={post} />
+        <Stack direction="row-reverse" padding="0.25rem 0.25rem 0 0">
+          <IconButton size="small">
+            <CloseIcon sx={{ width: "1rem", height: "1rem" }} />
+          </IconButton>
+        </Stack>
+        <List disablePadding sx={{ padding: "0 0.5rem 0.5rem" }}>
+          <PostCardModal handleClose={handleClose} post={post} />
           <ListItem disablePadding>
             <ListItemButton
               sx={{ padding: "0.25rem 0.5rem", borderRadius: "0.25rem" }}
