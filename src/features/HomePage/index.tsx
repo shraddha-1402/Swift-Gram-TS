@@ -1,6 +1,10 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, CircularProgress, Typography, Stack } from "@mui/material";
 import { Middlebar, PostCreateCard, PostCard } from "../../components";
 import { useAppSelector } from "../../app/hooks";
+import { SortPosts } from "../PostPages/components/SortPosts";
+import { sortPosts } from "../../utils";
+import { Posts } from "../../types";
 
 const boxStyle = {
   display: "flex",
@@ -10,6 +14,19 @@ const boxStyle = {
 
 const HomePage = () => {
   const { posts, isPostLoading } = useAppSelector((store) => store.posts);
+  const { user: authUser } = useAppSelector((store) => store.auth);
+  if (authUser === null) throw new Error("authUser null");
+  const [postFeed, setPostFeed] = useState<Posts.Post[]>([]);
+  const [sortingMethod, setSortingMethod] = useState("Latest");
+
+  useEffect(() => {
+    const filteredPosts = posts.filter(
+      (post) =>
+        authUser.following.find(({ username }) => username === post.username) ||
+        authUser.username === post.username
+    );
+    setPostFeed(sortPosts({ posts: filteredPosts, method: sortingMethod }));
+  }, [posts, authUser, sortingMethod]);
   return (
     <Box
       sx={{
@@ -27,8 +44,21 @@ const HomePage = () => {
         </Box>
       ) : (
         <Box sx={{ margin: "3rem 0" }}>
-          {posts?.length > 0 ? (
-            posts.map((post) => {
+          <Stack
+            maxWidth="35rem"
+            margin="0 auto"
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography variant="h6">Posts</Typography>
+            <SortPosts
+              sortingMethod={sortingMethod}
+              setSortingMethod={setSortingMethod}
+            />
+          </Stack>
+          {postFeed?.length > 0 ? (
+            postFeed.map((post) => {
               return <PostCard key={post._id} post={post} />;
             })
           ) : (
