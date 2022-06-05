@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { IconButton, Typography, Avatar, Stack } from "@mui/material";
@@ -15,6 +15,7 @@ const Navbar = () => {
   const { mode } = useAppSelector((store) => store.theme);
   const dispatch = useAppDispatch();
   const { user: authUser } = useAppSelector((store) => store.auth);
+  if (authUser === null) throw new Error("authUser null");
 
   const handleThemeToggle = () => dispatch(toggleDarkMode());
 
@@ -32,16 +33,20 @@ const Navbar = () => {
         backgroundColor: theme.palette.background.default,
         color: theme.palette.primary.main,
       }}
-      onClick={() => navigate(LocalRoutes.HOME)}
     >
-      <Typography
-        sx={{ cursor: "pointer", fontWeight: "bold" }}
-        variant="h4"
-        component="h1"
-        noWrap
+      <Link
+        to={LocalRoutes.HOME}
+        style={{ textDecoration: "none", color: "inherit" }}
       >
-        Swift Gram
-      </Typography>
+        <Typography
+          sx={{ cursor: "pointer", fontWeight: "bold" }}
+          variant="h4"
+          component="h1"
+          noWrap
+        >
+          Swift Gram
+        </Typography>
+      </Link>
       <Stack direction="row" spacing={1}>
         <IconButton
           aria-label="open drawer"
@@ -50,13 +55,17 @@ const Navbar = () => {
         >
           {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
-        <Avatar
-          src={authUser?.avatarURL}
-          sx={{ display: { xs: "none", md: "block" }, cursor: "pointer" }}
-          onClick={() =>
-            navigate(`${LocalRoutes.PROFILE}/${authUser?.username}`)
-          }
-        />
+        <IconButton
+          onClick={() => {
+            console.log(`${LocalRoutes.PROFILE}/${authUser.username}`);
+            navigate(`${LocalRoutes.PROFILE}/${authUser.username}`);
+          }}
+        >
+          <Avatar
+            src={authUser.avatarURL}
+            sx={{ display: { xs: "none", md: "block" } }}
+          />
+        </IconButton>
       </Stack>
     </MuiAppBar>
   );
