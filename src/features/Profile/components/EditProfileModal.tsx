@@ -15,6 +15,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { editUserProfile } from "../..";
 import { getAllUsers } from "../../PostPages/usersSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { uploadImage } from "../../../utils";
 
 const avatarStyle: CSSProperties = {
   width: "5rem",
@@ -41,41 +42,21 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
   );
   if (authUser === null || token === null)
     throw new Error("authUser or token is null");
-  const [avatarURL, setAvatarUrl] = useState(authUser.avatarURL);
-  const [bio, setBio] = useState(authUser.bio);
-  const [website, setWebsite] = useState(authUser.website);
+  const [avatarURL, setAvatarUrl] = useState<string>(authUser.avatarURL);
+  const [bio, setBio] = useState<string>(authUser.bio);
+  const [website, setWebsite] = useState<string>(authUser.website);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
 
-  const uploadImage = async (files: FileList) => {
-    const image = files[0];
-    if (Math.round(image.size / 1024000) > 2)
-      console.log("File size should be less than 2MB");
-    //add toast
-    else {
-      const data = new FormData();
-      data.append("file", image);
-      if (process.env.REACT_APP_CLOUDINARY_API_KEY)
-        data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_API_KEY);
-      const requestOptions = {
-        method: "POST",
-        body: data,
-      };
-      await fetch(`${process.env.REACT_APP_CLOUDINARY_URL}`, requestOptions)
-        .then((response) => response.json())
-        .then((json) => {
-          setAvatarUrl(json.secure_url);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(editUserProfile({ userData: { bio, website, avatarURL }, token }));
+    dispatch(
+      editUserProfile({
+        userData: { bio, website, avatarURL },
+        token,
+      })
+    );
     dispatch(getAllUsers());
     if (!isAuthContentLoading) handleClose();
   };
@@ -103,7 +84,11 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
                 id="icon-button-file"
                 type="file"
                 onChange={(e) => {
-                  if (e.target.files) uploadImage(e.target.files);
+                  if (e.target.files)
+                    uploadImage({
+                      files: e.target.files,
+                      setURL: setAvatarUrl,
+                    });
                 }}
               />
               <label htmlFor="icon-button-file" style={{ ...iconStyle }}>

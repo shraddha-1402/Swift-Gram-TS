@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 
-import { Box, TextField, Stack, Avatar, Paper } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Stack,
+  Avatar,
+  Paper,
+  IconButton,
+} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { publishSinglePost, editSinglePost } from "../../features";
 import { EmojiPopover } from "../Popover";
 import { Posts } from "../../types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { uploadImage } from "../../utils";
+
+const cancelBtnStyle = {
+  position: "absolute",
+};
 
 const PostCreateCard = ({
   post,
@@ -17,6 +31,7 @@ const PostCreateCard = ({
   const [postContent, setPostContent] = useState(
     post === undefined ? "" : post.content
   );
+  const [postImageData, setPostImageData] = useState<string>("");
   const { user: authUser, token } = useAppSelector((store) => store.auth);
   if (token === null || authUser === null)
     throw new Error("token or authUser null");
@@ -47,6 +62,13 @@ const PostCreateCard = ({
     handleBackdropClose();
   };
 
+  const handleRemovePostImage = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    console.log(postImageData);
+    setPostImageData("");
+  };
+
   return (
     <Paper
       elevation={2}
@@ -68,20 +90,64 @@ const PostCreateCard = ({
               id="outlined-multiline-static"
               multiline
               maxRows={4}
-              minRows={4}
+              minRows={1}
               fullWidth
               placeholder="What's on your mind?"
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
             />
           </Box>
-          <Stack direction="row-reverse">
+          {!!postImageData && (
+            <Box
+              sx={{
+                borderRadius: "0.25rem",
+                position: "relative",
+                maxWidth: "100%",
+                margin: "1rem 0",
+              }}
+            >
+              <IconButton
+                size="small"
+                sx={cancelBtnStyle}
+                onClick={handleRemovePostImage}
+              >
+                <CloseOutlinedIcon fontSize="small" sx={{ color: "white" }} />
+              </IconButton>
+              <img
+                src={postImageData}
+                style={{ maxWidth: "100%", borderRadius: "inherit" }}
+              />
+            </Box>
+          )}
+          <Stack
+            direction="row-reverse"
+            alignItems="center"
+            margin="0.25rem 0 0.5rem"
+          >
             <EmojiPopover setPostContent={setPostContent} />
+            <label htmlFor="icon-button-file">
+              <input
+                accept="image/*"
+                style={{ display: "none" }}
+                id="icon-button-file"
+                type="file"
+                onChange={(e) => {
+                  if (e.target.files)
+                    uploadImage({
+                      files: e.target.files,
+                      setURL: setPostImageData,
+                    });
+                }}
+              />
+              <IconButton component="span">
+                <InsertPhotoIcon />
+              </IconButton>
+            </label>
           </Stack>
         </Box>
       </Stack>
       <LoadingButton
-        disabled={postContent === ""}
+        disabled={postContent === "" && postImageData === ""}
         disableElevation
         size="small"
         variant="contained"
