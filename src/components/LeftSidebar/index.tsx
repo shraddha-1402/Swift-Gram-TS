@@ -15,6 +15,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 import { PostCreateModal } from "../PostCreateModal";
+import { SearchModal } from "../SearchModal";
 import { LocalRoutes } from "../../constants";
 const drawerWidth = 200;
 
@@ -74,6 +75,8 @@ const LeftSidebar = () => {
             <ListItemText primary="Bookmarks" />
           </ListItemButton>
         </ListItem>
+
+        <SearchModal />
 
         <PostCreateModal screenSize="md" />
       </List>
