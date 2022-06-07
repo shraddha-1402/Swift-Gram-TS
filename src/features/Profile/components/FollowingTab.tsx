@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Modal, Typography, Box } from "@mui/material";
 import { UserSmallProfileCard } from "./UserSmallProfileCard";
 import { Auth } from "../../../types";
