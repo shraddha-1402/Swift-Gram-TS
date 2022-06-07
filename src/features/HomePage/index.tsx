@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, CircularProgress, Typography, Stack } from "@mui/material";
-import { Middlebar, PostCreateCard, PostCard } from "../../components";
+import { Middlebar, PostCard } from "../../components";
 import { useAppSelector } from "../../app/hooks";
 import { SortPosts } from "../PostPages/components/SortPosts";
 import { sortPosts } from "../../utils";
@@ -35,7 +35,6 @@ const HomePage = () => {
         marginBottom: { xs: "3rem", md: "0" },
       }}
     >
-      <PostCreateCard />
       <Middlebar />
 
       {isPostLoading ? (
@@ -43,7 +42,7 @@ const HomePage = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <Box sx={{ margin: "3rem 0" }}>
+        <>
           <Stack
             maxWidth="35rem"
             margin="0 auto"
@@ -66,7 +65,7 @@ const HomePage = () => {
               Follow people to see their posts
             </Typography>
           )}
-        </Box>
+        </>
       )}
     </Box>
   );

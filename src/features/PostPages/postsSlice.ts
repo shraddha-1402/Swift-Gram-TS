@@ -30,7 +30,11 @@ export const getAllPosts = createAsyncThunk(
 export const publishSinglePost = createAsyncThunk(
   "/posts/publishSinglePost",
   async (
-    { postContent, token }: { postContent: string; token: string },
+    {
+      postContent,
+      postImageURL,
+      token,
+    }: { postContent: string; postImageURL: string; token: string },
     thunkAPI
   ) => {
     try {
@@ -40,7 +44,7 @@ export const publishSinglePost = createAsyncThunk(
         statusText,
       }: API.Response<{ posts: Posts.Post[] }> = await axios.post(
         "/api/posts",
-        { postData: { content: postContent } },
+        { postData: { content: postContent, imageURL: postImageURL } },
         { headers: { authorization: token } }
       );
       if (status === 201) return data.posts[data.posts.length - 1];

@@ -19,6 +19,12 @@ import { uploadImage } from "../../utils";
 
 const cancelBtnStyle = {
   position: "absolute",
+  top: "0.25rem",
+  left: "0.25rem",
+  backgroundColor: "#393A3C",
+  "&:hover": {
+    backgroundColor: "#1E1F21",
+  },
 };
 
 const PostCreateCard = ({
@@ -62,15 +68,12 @@ const PostCreateCard = ({
   };
 
   const handlePublishPost = () => {
-    dispatch(publishSinglePost({ postContent, token }));
+    dispatch(publishSinglePost({ postContent, postImageURL, token }));
     handleBackdropClose();
   };
 
-  const handleRemovePostImage = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
-    console.log(postImageURL);
-  };
+  const handleRemovePostImage = () =>
+    setPostData((prev) => ({ ...prev, postImageURL: "" }));
 
   return (
     <Paper
@@ -111,7 +114,7 @@ const PostCreateCard = ({
                 borderRadius: "0.25rem",
                 position: "relative",
                 maxWidth: "100%",
-                margin: "1rem 0",
+                marginTop: "0.5rem",
               }}
             >
               <IconButton

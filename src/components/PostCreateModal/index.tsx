@@ -1,11 +1,7 @@
 import { useState } from "react";
-import {
-  Dialog,
-  ListItem,
-  Button,
-  BottomNavigationAction,
-} from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Dialog, ListItem, Button, Box, Fab } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import AddIcon from "@mui/icons-material/Add";
 
 import { PostCreateCard } from "../PostCreateCard";
 
@@ -19,6 +15,15 @@ const PostCreateModal = ({ screenSize }: { screenSize: string }) => {
   };
   const [openPostCreateModal, setOpenPostCreateModal] = useState(false);
 
+  const StyledFab = styled(Fab)({
+    position: "absolute",
+    zIndex: 1,
+    top: -20,
+    left: 0,
+    right: 0,
+    margin: "0 auto",
+  });
+
   return (
     <>
       {screenSize === "md" ? (
@@ -26,17 +31,24 @@ const PostCreateModal = ({ screenSize }: { screenSize: string }) => {
           <Button
             variant="contained"
             disableElevation
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", textTransform: "none" }}
             onClick={handlePostCreateModal}
           >
-            Post
+            Create New Post
           </Button>
         </ListItem>
       ) : (
-        <BottomNavigationAction
-          icon={<AddCircleIcon />}
-          onClick={handlePostCreateModal}
-        />
+        <>
+          <StyledFab
+            color="primary"
+            size="medium"
+            aria-label="add"
+            onClick={handlePostCreateModal}
+          >
+            <AddIcon />
+          </StyledFab>
+          <Box sx={{ flexGrow: 1 }} />
+        </>
       )}
       <Dialog
         disableScrollLock

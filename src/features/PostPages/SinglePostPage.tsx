@@ -63,7 +63,8 @@ const SinglePostPage = () => {
   return (
     <Box
       sx={{
-        width: "100%",
+        maxWidth: "35rem",
+        margin: "0 auto",
         padding: "1.5rem",
         marginBottom: { xs: "3rem", md: "0" },
       }}
@@ -71,8 +72,15 @@ const SinglePostPage = () => {
       {Object.keys(currPost).length ? (
         <>
           <PostCard post={currPost} />
-          <Box sx={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "0.5rem",
+              alignItems: "center",
+            }}
+          >
             <TextField
+              autoFocus
               value={commentData}
               onChange={handleCommentChange}
               placeholder="Enter Comment"
@@ -97,9 +105,8 @@ const SinglePostPage = () => {
                 variant="outlined"
                 sx={{
                   borderRadius: "0.25rem",
-                  maxWidth: "35rem",
-                  margin: "1rem auto",
                   padding: "0.5rem",
+                  margin: "0.5rem 0",
                 }}
               >
                 <Stack

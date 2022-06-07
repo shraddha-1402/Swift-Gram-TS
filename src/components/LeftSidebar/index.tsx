@@ -75,7 +75,7 @@ const LeftSidebar = () => {
           </ListItemButton>
         </ListItem>
 
-        {currPath === "home" ? null : <PostCreateModal screenSize="md" />}
+        <PostCreateModal screenSize="md" />
       </List>
     </Drawer>
   );
