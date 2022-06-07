@@ -39,23 +39,25 @@ const ProfilePage = () => {
         marginBottom: { xs: "3rem", md: "0" },
       }}
     >
-      <UserInfoCard />
       {isProfileLoading && isPostContentLoading ? (
         <Box sx={{ ...boxStyle }}>
           <CircularProgress />
         </Box>
       ) : (
-        <Box sx={{ margin: "3rem 0" }}>
-          {currUserPosts?.length > 0 ? (
-            currUserPosts.map((post) => {
-              return <PostCard key={post._id} post={post} />;
-            })
-          ) : (
-            <Typography sx={{ textAlign: "center" }} variant="h4">
-              No posts yet
-            </Typography>
-          )}
-        </Box>
+        <>
+          <UserInfoCard />
+          <Box sx={{ margin: "3rem 0" }}>
+            {currUserPosts?.length > 0 ? (
+              currUserPosts.map((post) => {
+                return <PostCard key={post._id} post={post} />;
+              })
+            ) : (
+              <Typography sx={{ textAlign: "center" }} variant="h4">
+                No posts yet
+              </Typography>
+            )}
+          </Box>
+        </>
       )}
     </Box>
   );
