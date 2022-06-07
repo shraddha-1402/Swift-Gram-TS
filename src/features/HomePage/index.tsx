@@ -31,7 +31,8 @@ const HomePage = () => {
     <Box
       sx={{
         width: "100%",
-        padding: "1.5rem",
+        padding: "0 2rem",
+        marginTop: "2rem",
         marginBottom: { xs: "3rem", md: "0" },
       }}
     >
