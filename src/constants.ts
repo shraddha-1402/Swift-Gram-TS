@@ -26,6 +26,7 @@ const emojis = [
 export const postInitialState: Posts.Post = {
   _id: "",
   content: "",
+  imageURL: "",
   likes: {
     likeCount: 0,
     likedBy: [],

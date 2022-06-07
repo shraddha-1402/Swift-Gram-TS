@@ -4,9 +4,14 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { emojis } from "../../constants";
 
 const EmojiPopover = ({
-  setPostContent,
+  setPostData,
 }: {
-  setPostContent: Dispatch<React.SetStateAction<string>>;
+  setPostData: Dispatch<
+    React.SetStateAction<{
+      postContent: string;
+      postImageURL: string;
+    }>
+  >;
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -15,7 +20,10 @@ const EmojiPopover = ({
   };
 
   const handleIconClick = (emoji: string) => {
-    setPostContent((prev) => `${prev}${emoji}`);
+    setPostData((prev) => ({
+      ...prev,
+      postContent: `${prev.postContent}${emoji}`,
+    }));
   };
 
   const handleClose = () => {
@@ -27,7 +35,7 @@ const EmojiPopover = ({
 
   return (
     <div>
-      <IconButton onClick={handleClick} sx={{ marginBottom: "0.5rem" }}>
+      <IconButton onClick={handleClick}>
         <EmojiEmotionsIcon />
       </IconButton>
 
@@ -67,9 +75,3 @@ const EmojiPopover = ({
 };
 
 export { EmojiPopover };
-
-// width="16rem"
-// flexWrap="wrap"
-// direction="row"
-// justifyContent="center"
-// onClick={handleIconClick}

@@ -87,7 +87,10 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
                   if (e.target.files)
                     uploadImage({
                       files: e.target.files,
-                      setURL: setAvatarUrl,
+                      setImageURL: {
+                        type: "AvatarURLFunction",
+                        func: setAvatarUrl,
+                      },
                     });
                 }}
               />

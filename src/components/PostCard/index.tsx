@@ -95,6 +95,13 @@ const PostCard = ({ post }: { post: Posts.Post }) => {
         {showOptions && <PostCardPopover post={post} />}
       </Stack>
       <Typography sx={{ padding: "1rem 0" }}>{post.content}</Typography>
+      {!!post.imageURL && (
+        <img
+          src={post.imageURL}
+          alt="postImage"
+          style={{ maxWidth: "100%", margin: "0.5rem 0" }}
+        />
+      )}
       <Stack direction="row" justifyContent="space-between">
         <Box
           component="span"

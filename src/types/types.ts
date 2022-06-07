@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export namespace Theme {
   export enum Mode {
     dark = "dark",
@@ -53,6 +55,7 @@ export namespace Posts {
   export type Post = {
     _id: string;
     content: string;
+    imageURL: string;
     likes: {
       likeCount: number;
       likedBy: unknown[];
@@ -95,3 +98,17 @@ export namespace API {
     statusText: string;
   };
 }
+
+interface PostDataFunction {
+  type: "PostDataFunction";
+  func: Dispatch<
+    React.SetStateAction<{ postContent: string; postImageURL: string }>
+  >;
+}
+
+interface AvatarURLFunction {
+  type: "AvatarURLFunction";
+  func: Dispatch<React.SetStateAction<string>>;
+}
+
+export type SetImageURLFunction = PostDataFunction | AvatarURLFunction;

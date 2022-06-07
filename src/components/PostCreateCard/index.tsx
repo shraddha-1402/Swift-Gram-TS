@@ -28,10 +28,14 @@ const PostCreateCard = ({
   post?: Posts.Post;
   closeBackdrop?: () => void;
 }) => {
-  const [postContent, setPostContent] = useState(
-    post === undefined ? "" : post.content
+  const [{ postContent, postImageURL }, setPostData] = useState<{
+    postContent: string;
+    postImageURL: string;
+  }>(
+    post === undefined
+      ? { postContent: "", postImageURL: "" }
+      : { postContent: post.content, postImageURL: post.imageURL }
   );
-  const [postImageData, setPostImageData] = useState<string>("");
   const { user: authUser, token } = useAppSelector((store) => store.auth);
   if (token === null || authUser === null)
     throw new Error("token or authUser null");
@@ -40,7 +44,7 @@ const PostCreateCard = ({
 
   const handleBackdropClose = () => {
     if (!isPostContentLoading) {
-      setPostContent("");
+      setPostData({ postContent: "", postImageURL: "" });
       closeBackdrop && closeBackdrop();
     }
   };
@@ -65,8 +69,7 @@ const PostCreateCard = ({
   const handleRemovePostImage = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
-    console.log(postImageData);
-    setPostImageData("");
+    console.log(postImageURL);
   };
 
   return (
@@ -94,10 +97,15 @@ const PostCreateCard = ({
               fullWidth
               placeholder="What's on your mind?"
               value={postContent}
-              onChange={(e) => setPostContent(e.target.value)}
+              onChange={(e) =>
+                setPostData((prev) => ({
+                  ...prev,
+                  postContent: e.target.value,
+                }))
+              }
             />
           </Box>
-          {!!postImageData && (
+          {!!postImageURL && (
             <Box
               sx={{
                 borderRadius: "0.25rem",
@@ -114,8 +122,9 @@ const PostCreateCard = ({
                 <CloseOutlinedIcon fontSize="small" sx={{ color: "white" }} />
               </IconButton>
               <img
-                src={postImageData}
+                src={postImageURL}
                 style={{ maxWidth: "100%", borderRadius: "inherit" }}
+                alt="postImage"
               />
             </Box>
           )}
@@ -124,7 +133,7 @@ const PostCreateCard = ({
             alignItems="center"
             margin="0.25rem 0 0.5rem"
           >
-            <EmojiPopover setPostContent={setPostContent} />
+            <EmojiPopover setPostData={setPostData} />
             <label htmlFor="icon-button-file">
               <input
                 accept="image/*"
@@ -135,7 +144,10 @@ const PostCreateCard = ({
                   if (e.target.files)
                     uploadImage({
                       files: e.target.files,
-                      setURL: setPostImageData,
+                      setImageURL: {
+                        type: "PostDataFunction",
+                        func: setPostData,
+                      },
                     });
                 }}
               />
@@ -147,7 +159,7 @@ const PostCreateCard = ({
         </Box>
       </Stack>
       <LoadingButton
-        disabled={postContent === "" && postImageData === ""}
+        disabled={postContent === "" && postImageURL === ""}
         disableElevation
         size="small"
         variant="contained"

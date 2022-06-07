@@ -11,6 +11,8 @@ export const posts = [
     _id: "DJsndsor",
     content:
       "ctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod  avoluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+    imageURL:
+      "https://res.cloudinary.com/doigywl1z/image/upload/v1652959058/avatar3_mj0ghj.jpg",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -50,6 +52,7 @@ export const posts = [
     _id: "dssdUSNSL",
     content:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui ",
+    imageURL: "",
     likes: {
       likeCount: 0,
       likedBy: [],

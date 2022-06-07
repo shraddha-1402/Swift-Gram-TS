@@ -1,11 +1,11 @@
-import { Dispatch } from "react";
+import { SetImageURLFunction } from "../types/types";
 
 const uploadImage = async ({
   files,
-  setURL,
+  setImageURL,
 }: {
   files: FileList;
-  setURL: Dispatch<React.SetStateAction<string>>;
+  setImageURL: SetImageURLFunction;
 }) => {
   const image = files[0];
   if (Math.round(image.size / 1024000) > 2)
@@ -23,7 +23,12 @@ const uploadImage = async ({
     await fetch(`${process.env.REACT_APP_CLOUDINARY_URL}`, requestOptions)
       .then((response) => response.json())
       .then((json) => {
-        setURL(json.secure_url);
+        if (setImageURL.type === "PostDataFunction")
+          setImageURL.func((prev) => ({
+            ...prev,
+            postImageURL: json.secure_url,
+          }));
+        else setImageURL.func(json.secure_url);
       })
       .catch((error) => {
         console.error(error);
