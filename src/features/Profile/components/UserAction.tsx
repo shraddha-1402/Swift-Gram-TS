@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, IconButton, Box } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { signOutUser, unfollowUser, followUserMethod } from "../..";
 import { EditProfileModal } from "./EditProfileModal";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Auth } from "../../../types";
+import { SettingsModal } from "./SettingsModal";
 
 const UserAction = ({
   screenSize,
@@ -76,14 +76,7 @@ const UserAction = ({
           {isFollowing ? "Unfollow" : "Follow"}
         </Button>
       )}
-      {isLoggedUserSame && (
-        <IconButton
-          sx={{ marginLeft: "1rem" }}
-          onClick={() => dispatch(signOutUser())}
-        >
-          <LogoutIcon />
-        </IconButton>
-      )}
+      {isLoggedUserSame && <SettingsModal />}
     </Box>
   );
 };

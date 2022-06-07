@@ -1,23 +1,16 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { IconButton, Typography, Avatar, Stack } from "@mui/material";
+import { IconButton, Typography, Avatar } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import { useTheme } from "@mui/material/styles";
 import { LocalRoutes } from "../../constants";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { toggleDarkMode } from "../../features/";
+import { useAppSelector } from "../../app/hooks";
 
 const Navbar = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { mode } = useAppSelector((store) => store.theme);
-  const dispatch = useAppDispatch();
   const { user: authUser } = useAppSelector((store) => store.auth);
   if (authUser === null) throw new Error("authUser null");
-
-  const handleThemeToggle = () => dispatch(toggleDarkMode());
 
   return (
     <MuiAppBar
@@ -47,24 +40,15 @@ const Navbar = () => {
           Swift Gram
         </Typography>
       </Link>
-      <Stack direction="row" spacing={1}>
-        <IconButton
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleThemeToggle}
-        >
-          {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
-        <IconButton
-          sx={{ display: { xs: "none", md: "block" } }}
-          onClick={() => {
-            console.log(`${LocalRoutes.PROFILE}/${authUser.username}`);
-            navigate(`${LocalRoutes.PROFILE}/${authUser.username}`);
-          }}
-        >
-          <Avatar src={authUser.avatarURL} />
-        </IconButton>
-      </Stack>
+      <IconButton
+        sx={{ display: { xs: "none", md: "block" } }}
+        onClick={() => {
+          console.log(`${LocalRoutes.PROFILE}/${authUser.username}`);
+          navigate(`${LocalRoutes.PROFILE}/${authUser.username}`);
+        }}
+      >
+        <Avatar src={authUser.avatarURL} />
+      </IconButton>
     </MuiAppBar>
   );
 };
