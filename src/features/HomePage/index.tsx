@@ -62,7 +62,7 @@ const HomePage = () => {
               return <PostCard key={post._id} post={post} />;
             })
           ) : (
-            <Typography variant="h5">
+            <Typography variant="h5" textAlign="center" marginTop="2rem">
               Follow people to see their posts
             </Typography>
           )}
