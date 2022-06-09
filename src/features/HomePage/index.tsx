@@ -35,7 +35,7 @@ const HomePage = () => {
         width: "100%",
         padding: "0 2rem",
         marginTop: "2rem",
-        marginBottom: { xs: "3rem", md: "0" },
+        marginBottom: { xs: "5rem", md: "0" },
       }}
     >
       <Middlebar />
