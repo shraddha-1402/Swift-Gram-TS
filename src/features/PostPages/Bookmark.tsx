@@ -3,8 +3,10 @@ import { Box, Typography } from "@mui/material";
 import { PostCard } from "../../components";
 import { useAppSelector } from "../../app/hooks";
 import type { Posts } from "../../types";
+import { useDynamicTitle } from "../../hooks";
 
 const Bookmark = () => {
+  useDynamicTitle();
   const { user: authUser } = useAppSelector((store) => store.auth);
   if (authUser === null) throw new Error("authuser null");
   const { posts } = useAppSelector((store) => store.posts);

@@ -6,8 +6,10 @@ import { LocalRoutes } from "../../constants";
 import { HeroSection } from "./components/HeroSection";
 import { signUpUser } from "./authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useDynamicTitle } from "../../hooks";
 
 const Signup = () => {
+  useDynamicTitle();
   const dispatch = useAppDispatch();
   const { isAuthLoading } = useAppSelector((store) => store.auth);
 

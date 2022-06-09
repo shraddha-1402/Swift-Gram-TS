@@ -5,6 +5,7 @@ import { SortPosts } from "./components/SortPosts";
 import { sortPosts } from "../../utils";
 import { useAppSelector } from "../../app/hooks";
 import { Posts } from "../../types";
+import { useDynamicTitle } from "../../hooks";
 
 const boxStyle = {
   display: "flex",
@@ -13,6 +14,7 @@ const boxStyle = {
 };
 
 const Explore = () => {
+  useDynamicTitle();
   const { user: authUser } = useAppSelector((store) => store.auth);
   if (authUser === null) throw new Error("authUser null");
   const { posts, isPostLoading } = useAppSelector((store) => store.posts);

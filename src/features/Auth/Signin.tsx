@@ -6,8 +6,10 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { LocalRoutes, testLoginCredentials } from "../../constants";
 import { HeroSection } from "./components/HeroSection";
 import { signInUser } from "./authSlice";
+import { useDynamicTitle } from "../../hooks";
 
 const Signin = () => {
+  useDynamicTitle();
   const dispatch = useAppDispatch();
   const { isAuthLoading } = useAppSelector((state) => state.auth);
   const [signinFieldValues, setSigninFieldValues] = useState<{

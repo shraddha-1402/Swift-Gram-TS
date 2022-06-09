@@ -2,8 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { LocalRoutes } from "../constants";
+import { useDynamicTitle } from "../hooks";
 
 const PageNotFound = () => {
+  useDynamicTitle();
   const navigate = useNavigate();
   return (
     <Box

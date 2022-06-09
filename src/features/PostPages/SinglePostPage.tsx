@@ -17,6 +17,7 @@ import { PostCard } from "../../components";
 import { LocalRoutes, postInitialState } from "../../constants";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Posts } from "../../types";
+import { useDynamicTitle } from "../../hooks";
 
 const boxStyle = {
   display: "flex",
@@ -25,6 +26,7 @@ const boxStyle = {
 };
 
 const SinglePostPage = () => {
+  useDynamicTitle();
   const { postId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

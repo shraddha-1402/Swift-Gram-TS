@@ -5,6 +5,7 @@ import { UserInfoCard } from "./components/UserInfoCard";
 import { PostCard } from "../../components";
 import { getUserPosts, getUserProfileDetails } from "..";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useDynamicTitle } from "../../hooks";
 
 const boxStyle = {
   display: "flex",
@@ -13,6 +14,7 @@ const boxStyle = {
 };
 
 const ProfilePage = () => {
+  useDynamicTitle();
   const { username } = useParams();
   const dispatch = useAppDispatch();
   const { user: authUser } = useAppSelector((store) => store.auth);
