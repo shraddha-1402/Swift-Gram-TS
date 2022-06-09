@@ -60,7 +60,7 @@ const PostCreateCard = ({
       dispatch(
         editSinglePost({
           postId: post._id,
-          postData: { content: postContent },
+          postData: { content: postContent, imageURL: postImageURL },
           token,
         })
       );

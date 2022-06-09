@@ -63,7 +63,11 @@ export const editSinglePost = createAsyncThunk(
       postId,
       postData,
       token,
-    }: { postId: string; postData: { content: string }; token: string },
+    }: {
+      postId: string;
+      postData: { content: string; imageURL: string };
+      token: string;
+    },
     thunkAPI
   ) => {
     try {
