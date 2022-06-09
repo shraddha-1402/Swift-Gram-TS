@@ -126,7 +126,13 @@ const PostCard = ({ post }: { post: Posts.Post }) => {
         <IconButton disabled={isAuthContentLoading} onClick={handleBookmark}>
           {isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
         </IconButton>
-        <IconButton>
+        <IconButton
+          onClick={() =>
+            navigator.clipboard.writeText(
+              `http://localhost:3000${LocalRoutes.SINGLE_POST}/${post._id}`
+            )
+          }
+        >
           <ShareIcon />
         </IconButton>
       </Stack>
