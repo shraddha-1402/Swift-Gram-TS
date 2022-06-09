@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { isLoginData } from "../../types/typeGuards";
+import { isAxiosError, isLoginData } from "../../types/typeGuards";
 import { Auth } from "../../types/types";
+import { toast } from "react-toastify";
 const getSMLoginData = () => {
   const localData = localStorage.getItem("smLoginData");
   if (localData === null) return null;
@@ -40,12 +41,13 @@ export const signInUser = createAsyncThunk(
         return { user: data.foundUser, token: data.encodedToken };
       else throw new Error(`${status} ${statusText}`);
     } catch (error) {
-      if (error === 404) return thunkAPI.rejectWithValue("User not found");
-      else if (error === 401)
-        return thunkAPI.rejectWithValue("Check your credentials");
-      else return thunkAPI.rejectWithValue("Could not signin, try later!");
-      // console.log(error);
-      // return;
+      if (isAxiosError(error)) {
+        if (error.response?.status === 404)
+          return thunkAPI.rejectWithValue("User not found");
+        else if (error.response?.status === 401)
+          return thunkAPI.rejectWithValue("Check your credentials");
+        else return thunkAPI.rejectWithValue("Could not signin, try later!");
+      } else return thunkAPI.rejectWithValue("Could not signin, try later!");
     }
   }
 );
@@ -75,9 +77,11 @@ export const signUpUser = createAsyncThunk(
         };
       else throw new Error(`${status} ${statusText}`);
     } catch (error) {
-      if (error === 422) thunkAPI.rejectWithValue("Username already exists");
-      else thunkAPI.rejectWithValue("Could not signup, try later");
-      console.log(error);
+      if (isAxiosError(error)) {
+        if (error.response?.status === 422)
+          thunkAPI.rejectWithValue("Username already exists");
+        else thunkAPI.rejectWithValue("Could not signup, try later");
+      }
       return null;
     }
   }
@@ -189,7 +193,6 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // sign in user states
     builder
       .addCase(signInUser.pending, (state) => {
         state.isAuthLoading = true;
@@ -208,11 +211,10 @@ export const authSlice = createSlice({
             user: action.payload?.user,
           })
         );
-        // add toast for displaying success
       })
-      .addCase(signInUser.rejected, (state) => {
+      .addCase(signInUser.rejected, (state, action) => {
         state.isAuthLoading = false;
-        // add toast for displaying error
+        toast.error(JSON.stringify(action.payload));
       })
       .addCase(signUpUser.pending, (state) => {
         state.isAuthLoading = true;
@@ -231,11 +233,10 @@ export const authSlice = createSlice({
             user: action.payload.user,
           })
         );
-        // add toast for displaying success
       })
-      .addCase(signUpUser.rejected, (state) => {
+      .addCase(signUpUser.rejected, (state, action) => {
         state.isAuthLoading = false;
-        // add toast for displaying error
+        toast.error(JSON.stringify(action.payload));
       })
       .addCase(editUserProfile.pending, (state) => {
         state.isAuthContentLoading = true;
@@ -243,11 +244,12 @@ export const authSlice = createSlice({
       .addCase(editUserProfile.fulfilled, (state, action) => {
         state.isAuthContentLoading = false;
         state.user = action.payload;
+        toast.success("Profile updated");
       })
       .addCase(editUserProfile.rejected, (state, action) => {
         state.isAuthContentLoading = false;
         console.log(action.payload);
-        // toast about error
+        toast.error("Could not update profile");
       })
       .addCase(getAllBookmarks.pending, (state) => {
         state.isAuthContentLoading = true;
@@ -259,7 +261,6 @@ export const authSlice = createSlice({
       .addCase(getAllBookmarks.rejected, (state, action) => {
         state.isAuthContentLoading = false;
         console.log(action.payload);
-        // toast about error
       })
       .addCase(addPostToBookmark.pending, (state) => {
         state.isAuthContentLoading = true;
@@ -271,7 +272,6 @@ export const authSlice = createSlice({
       .addCase(addPostToBookmark.rejected, (state, action) => {
         state.isAuthContentLoading = false;
         console.log(action.payload);
-        // toast about error
       })
       .addCase(removePostFromBookmark.pending, (state) => {
         state.isAuthContentLoading = true;
@@ -283,7 +283,6 @@ export const authSlice = createSlice({
       .addCase(removePostFromBookmark.rejected, (state, action) => {
         state.isAuthContentLoading = false;
         console.log(action.payload);
-        // toast about error
       });
   },
 });

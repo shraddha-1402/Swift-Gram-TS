@@ -1,12 +1,12 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API, Posts } from "../../types/types";
+import { toast } from "react-toastify";
 
 const initialState: Posts.State = {
   posts: [],
   isPostLoading: false,
   isPostContentLoading: false,
-  // singlePost: [],
 };
 
 export const getAllPosts = createAsyncThunk(
@@ -240,9 +240,11 @@ export const postsSlice = createSlice({
       .addCase(publishSinglePost.fulfilled, (state, action) => {
         state.isPostContentLoading = false;
         state.posts.unshift(action.payload);
+        toast.success("New post created");
       })
-      .addCase(publishSinglePost.rejected, (state) => {
+      .addCase(publishSinglePost.rejected, (state, action) => {
         state.isPostContentLoading = false;
+        toast.error(JSON.stringify(action.payload));
       })
       .addCase(editSinglePost.pending, (state) => {
         state.isPostContentLoading = true;
@@ -254,9 +256,11 @@ export const postsSlice = createSlice({
             ? action.payload.editedPost
             : post
         );
+        toast.success("Post edited");
       })
-      .addCase(editSinglePost.rejected, (state) => {
+      .addCase(editSinglePost.rejected, (state, action) => {
         state.isPostContentLoading = false;
+        toast.error(JSON.stringify(action.payload));
       })
       .addCase(deleteSinglePost.pending, (state) => {
         state.isPostContentLoading = true;
@@ -266,13 +270,14 @@ export const postsSlice = createSlice({
         state.posts = state.posts.filter(
           ({ _id }) => _id !== action.payload.postId
         );
+        toast.success("Post deleted");
       })
-      .addCase(deleteSinglePost.rejected, (state) => {
+      .addCase(deleteSinglePost.rejected, (state, action) => {
         state.isPostContentLoading = false;
+        toast.error(JSON.stringify(action.payload));
       })
       .addCase(likePost.pending, (state) => {
         state.isPostContentLoading = true;
-        // console.log(isLoad);
       })
       .addCase(likePost.fulfilled, (state, action) => {
         state.isPostContentLoading = false;
@@ -314,7 +319,6 @@ export const postsSlice = createSlice({
       })
       .addCase(deleteCommentOnPost.rejected, (state) => {
         state.isPostContentLoading = false;
-        // toast
       });
   },
 });

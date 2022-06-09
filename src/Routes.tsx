@@ -1,9 +1,11 @@
-import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import {
   Route,
   BrowserRouter as Router,
   Routes as RoutesContainer,
 } from "react-router-dom";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 
 import App from "./App";
 import { PrivateRoute } from "./components";
@@ -45,7 +47,14 @@ const Routes = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
+      <ToastContainer
+        autoClose={1000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        transition={Slide}
+        theme="colored"
+        position={"bottom-right"}
+      />
       <Router>
         <RoutesContainer>
           <Route element={<PrivateRoute />}>

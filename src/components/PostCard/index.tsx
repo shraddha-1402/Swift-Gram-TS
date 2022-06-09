@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Avatar,
   IconButton,
@@ -127,11 +128,13 @@ const PostCard = ({ post }: { post: Posts.Post }) => {
           {isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
         </IconButton>
         <IconButton
-          onClick={() =>
+          sx={{ cursor: "copy" }}
+          onClick={() => {
             navigator.clipboard.writeText(
               `http://localhost:3000${LocalRoutes.SINGLE_POST}/${post._id}`
-            )
-          }
+            );
+            toast.info("Post url copied");
+          }}
         >
           <ShareIcon />
         </IconButton>
