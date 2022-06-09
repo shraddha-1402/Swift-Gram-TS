@@ -45,7 +45,9 @@ const SearchModal = () => {
       users.filter(
         (user) =>
           searchString !== "" &&
-          user.username.toLowerCase().includes(searchString.toLowerCase())
+          (user.username.toLowerCase().includes(searchString.toLowerCase()) ||
+            user.firstName.toLowerCase().includes(searchString.toLowerCase()) ||
+            user.lastName.toLowerCase().includes(searchString.toLowerCase()))
       )
     );
   };
