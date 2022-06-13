@@ -47,13 +47,7 @@
 
 ## Tech Stack and Tools
 
-<img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" height="48"/>
-<img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/redux/redux.png" height="48"/> 
-<img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" height="48"/> 
-<img src="https://camo.githubusercontent.com/306dedb9426f1d93a981d305a0a18164932ece8dca4d5fd820b1d3c36625b218/68747470733a2f2f6d75692e636f6d2f7374617469632f6c6f676f2e737667" height="48"/>
-<img src="https://img.icons8.com/color/48/000000/git.png"/> 
-<img src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png" height="48">
-<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fres.cloudinary.com%2Fdemo%2Fimage%2Fupload%2Fe_shadow%2Fw_400%2Fcloudinary_icon.png&f=1&nofb=1" height="48"/>
+<img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" height="48"/> <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/redux/redux.png" height="48"/> <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" height="48"/> <img src="https://camo.githubusercontent.com/306dedb9426f1d93a981d305a0a18164932ece8dca4d5fd820b1d3c36625b218/68747470733a2f2f6d75692e636f6d2f7374617469632f6c6f676f2e737667" height="48"/> <img src="https://img.icons8.com/color/48/000000/git.png"/> <img src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png" height="48"> <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fres.cloudinary.com%2Fdemo%2Fimage%2Fupload%2Fe_shadow%2Fw_400%2Fcloudinary_icon.png&f=1&nofb=1" height="48"/>
 
 ## How to run the app locally?
 
