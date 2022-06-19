@@ -86,14 +86,22 @@ export const unfollowUser = createAsyncThunk(
       }: API.Response<{
         user: Auth.User;
         followUser: Auth.User;
-      }> = await axios.post(`/api/users/unfollow/${followUserId}`);
-      if (status === 201) {
+      }> = await axios.post(
+        `/api/users/unfollow/${followUserId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (status === 200) {
         dispatch(editUserProfile({ userData: data.user, token }));
         return data.followUser;
       } else throw new Error(`${status}, ${statusText}`);
     } catch (error) {
       console.log(error);
-      return thunkAPI.rejectWithValue("could not follow user");
+      return thunkAPI.rejectWithValue("could not unfollow user");
     }
   }
 );
