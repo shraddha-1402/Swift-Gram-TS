@@ -244,12 +244,10 @@ export const authSlice = createSlice({
       .addCase(editUserProfile.fulfilled, (state, action) => {
         state.isAuthContentLoading = false;
         state.user = action.payload;
-        toast.success("Profile updated");
       })
       .addCase(editUserProfile.rejected, (state, action) => {
         state.isAuthContentLoading = false;
         console.log(action.payload);
-        toast.error("Could not update profile");
       })
       .addCase(getAllBookmarks.pending, (state) => {
         state.isAuthContentLoading = true;
