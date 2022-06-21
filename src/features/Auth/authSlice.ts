@@ -48,6 +48,7 @@ export const signInUser = createAsyncThunk(
           return thunkAPI.rejectWithValue("Check your credentials");
         else {
           console.log(error.response);
+          console.log(process.env.REACT_APP_JWT_SECRET);
           return thunkAPI.rejectWithValue("Could not signin, try later! 1");
         }
       } else {
