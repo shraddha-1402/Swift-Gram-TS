@@ -63,7 +63,7 @@ const PostCardPopover = ({ post }: { post: Posts.Post }) => {
         }}
       >
         <Stack direction="row-reverse" padding="0.25rem 0.25rem 0 0">
-          <IconButton size="small">
+          <IconButton size="small" onClick={handleClose}>
             <CloseIcon sx={{ width: "1rem", height: "1rem" }} />
           </IconButton>
         </Stack>
