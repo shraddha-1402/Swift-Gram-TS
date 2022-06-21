@@ -46,8 +46,14 @@ export const signInUser = createAsyncThunk(
           return thunkAPI.rejectWithValue("User not found");
         else if (error.response?.status === 401)
           return thunkAPI.rejectWithValue("Check your credentials");
-        else return thunkAPI.rejectWithValue("Could not signin, try later!");
-      } else return thunkAPI.rejectWithValue("Could not signin, try later!");
+        else {
+          console.log(error.response);
+          return thunkAPI.rejectWithValue("Could not signin, try later! 1");
+        }
+      } else {
+        console.log(error);
+        return thunkAPI.rejectWithValue("Could not signin, try later! 2");
+      }
     }
   }
 );
