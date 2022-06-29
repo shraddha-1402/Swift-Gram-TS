@@ -55,8 +55,8 @@ export const userInitialState: Auth.User = {
 };
 
 const testLoginCredentials = {
-  username: "adarshbalika",
-  password: "adarshBalika123",
+  username: "kristee",
+  password: "kristee123",
 };
 
 enum LocalRoutes {

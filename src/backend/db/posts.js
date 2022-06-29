@@ -18,14 +18,14 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
-    createdAt: formatDate(),
+    username: "kristee",
+    createdAt: "2021-08-28T10:55:06+05:30",
     updatedAt: formatDate(),
     comments: [
       {
         _id: uuid(),
         username: "john_ferguson",
-        text: "Interesting",
+        text: "Congratulations!",
         name: "John Ferguson",
         avatarURL:
           "https://res.cloudinary.com/doigywl1z/image/upload/v1652959071/avatar1_vkolbj.jpg",
@@ -37,7 +37,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "natalieee",
-        text: "Wow!",
+        text: "Happy for you!",
         name: "Natalie Robinson",
         avatarURL:
           "https://res.cloudinary.com/doigywl1z/image/upload/v1652959062/avatar6_puj5vv.jpg",
@@ -51,8 +51,9 @@ export const posts = [
   {
     _id: "dssdUfghSNSL",
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui ",
-    imageURL: "",
+      "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+    imageURL:
+      "https://res.cloudinary.com/doigywl1z/image/upload/v1656089848/epic-sunrise-photos-fog_yhveh2.jpg",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -64,7 +65,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "john_ferguson",
-        text: "Interesting",
+        text: "Interesting thoughts!",
         name: "John Ferguson",
         avatarURL:
           "https://res.cloudinary.com/doigywl1z/image/upload/v1652959071/avatar1_vkolbj.jpg",
@@ -76,7 +77,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "natalieee",
-        text: "Wow!",
+        text: "Wow! Such amazing thoughts",
         name: "Natalie Robinson",
         avatarURL:
           "https://res.cloudinary.com/doigywl1z/image/upload/v1652959062/avatar6_puj5vv.jpg",
@@ -92,7 +93,7 @@ export const posts = [
   {
     _id: "sdfjUUsddeeEEH23",
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui ",
+      "Instead of worrying about what you cannot control, shift your energy to what you can create.",
     imageURL: "",
     likes: {
       likeCount: 0,
@@ -104,8 +105,20 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
+        username: "kristee",
+        text: "Totally agreed!",
+        name: "Kristina Rogers",
+        avatarURL:
+          "https://res.cloudinary.com/doigywl1z/image/upload/v1652959071/avatar1_vkolbj.jpg",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
         username: "john_ferguson",
-        text: "Interesting",
+        text: "True!",
         name: "John Ferguson",
         avatarURL:
           "https://res.cloudinary.com/doigywl1z/image/upload/v1652959071/avatar1_vkolbj.jpg",
@@ -127,13 +140,13 @@ export const posts = [
         },
       },
     ],
-    createdAt: "2022-07-15T10:55:06+05:30",
+    createdAt: "2022-03-15T10:55:06+05:30",
     updatedAt: formatDate(),
   },
   {
     _id: "dssdUSNfdfdfSL",
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui ",
+      "Accept yourself, love yourself, and keep moving forward. If you want to fly, you have to give up what weighs you down.",
     imageURL: "",
     likes: {
       likeCount: 0,
@@ -168,13 +181,13 @@ export const posts = [
         },
       },
     ],
-    createdAt: "2022-10-15T10:55:06+05:30",
+    createdAt: "2022-03-15T10:55:06+05:30",
     updatedAt: formatDate(),
   },
   {
     _id: "sdffdgfjUUEEH23",
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui ",
+      "Live the Life of Your Dreams: Be brave enough to live the life of your dreams according to your vision and purpose instead of the expectations and opinions of others.",
     imageURL: "",
     likes: {
       likeCount: 0,
