@@ -53,9 +53,7 @@ const Middlebar = () => {
             display: { xs: "block", md: "none" },
           }}
         >
-          <Typography sx={{ fontSize: "1.2em" }}>
-            Suggestions for you
-          </Typography>
+          <Typography sx={{ fontSize: "1.2em" }}>Suggested Users</Typography>
           <Stack
             direction="row"
             spacing={2}

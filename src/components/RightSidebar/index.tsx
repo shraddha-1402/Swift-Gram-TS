@@ -75,7 +75,7 @@ const RightSidebar = () => {
     >
       <Toolbar />
       <Typography sx={{ padding: "1.5rem 1rem 0.5rem", fontSize: "1.2em" }}>
-        {suggestedUsers.length ? "Suggestions for you" : "No Suggestions"}
+        {suggestedUsers.length ? "Suggested Users" : "No Suggestions"}
       </Typography>
       <List>
         {suggestedUsers.map(
