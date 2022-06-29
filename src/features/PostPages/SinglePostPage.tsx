@@ -74,6 +74,9 @@ const SinglePostPage = () => {
       {Object.keys(currPost).length ? (
         <>
           <PostCard post={currPost} />
+          <Typography variant="h6" marginBottom="0.5rem">
+            Comments
+          </Typography>
           <Box
             sx={{
               display: "flex",
