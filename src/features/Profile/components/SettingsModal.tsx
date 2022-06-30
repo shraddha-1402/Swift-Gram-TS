@@ -1,7 +1,5 @@
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import {
   Box,
   Dialog,
@@ -11,17 +9,16 @@ import {
   Stack,
 } from "@mui/material";
 import { useState } from "react";
-import { signOutUser, toggleDarkMode } from "../../../features/";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { signOutUser } from "../../../features/";
+import { useAppDispatch } from "../../../app/hooks";
+import { ThemeChangeSwitch } from "./ThemeChangeSwitch";
 
 const SettingsModal = () => {
   const [openSettingModal, setOpenSettingModal] = useState(false);
-  const { mode } = useAppSelector((store) => store.theme);
   const dispatch = useAppDispatch();
 
   const handleOpen = () => setOpenSettingModal(true);
   const handleClose = () => setOpenSettingModal(false);
-  const handleThemeToggle = () => dispatch(toggleDarkMode());
 
   return (
     <>
@@ -29,7 +26,7 @@ const SettingsModal = () => {
         <SettingsIcon />
       </IconButton>
       <Dialog open={openSettingModal} onClose={handleClose}>
-        <Box sx={{ width: "16rem", padding: "1rem", textAlign: "center" }}>
+        <Box sx={{ maxWidth: "35rem", padding: "1rem", textAlign: "center" }}>
           <Typography sx={{ fontSize: "1.4em", margin: "0.5rem 0 1rem" }}>
             Settings
           </Typography>
@@ -40,13 +37,7 @@ const SettingsModal = () => {
             gap="1.5rem"
           >
             <Typography>Change Theme: </Typography>
-            <IconButton
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleThemeToggle}
-            >
-              {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
-            </IconButton>
+            <ThemeChangeSwitch />
           </Stack>
           <Button
             sx={{ textTransform: "none", margin: "0.5rem 0" }}
