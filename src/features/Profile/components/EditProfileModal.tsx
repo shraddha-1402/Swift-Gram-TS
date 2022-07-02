@@ -59,8 +59,6 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
   const [open, setOpen] = useState(false);
   const [imageUploadLoading, setImageUploadLoading] = useState(false);
 
-  const handleClose = () => setOpen(false);
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
@@ -71,6 +69,17 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
     );
     dispatch(getAllUsers());
     if (!isAuthContentLoading) handleClose();
+  };
+
+  const handleCancelUpdate = () => {
+    setAvatarUrl(authUser.avatarURL);
+    setBio(authUser.bio);
+    setWebsite(authUser.website);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    handleCancelUpdate();
   };
 
   return (
