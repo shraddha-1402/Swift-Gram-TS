@@ -9,6 +9,7 @@ import {
   Button,
   Avatar,
   Box,
+  CircularProgress,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -35,6 +36,16 @@ const inputStyle: CSSProperties = {
   visibility: "hidden",
 };
 
+const loadingContainerStyle: CSSProperties = {
+  position: "absolute",
+  top: "-0.5rem",
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
   const dispatch = useAppDispatch();
   const { user: authUser, token, isAuthContentLoading } = useAppSelector(
@@ -46,6 +57,7 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
   const [bio, setBio] = useState<string>(authUser.bio);
   const [website, setWebsite] = useState<string>(authUser.website);
   const [open, setOpen] = useState(false);
+  const [imageUploadLoading, setImageUploadLoading] = useState(false);
 
   const handleClose = () => setOpen(false);
 
@@ -78,6 +90,9 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
           <DialogContent>
             <Box sx={{ position: "relative" }}>
               <Avatar sx={{ ...avatarStyle }} src={avatarURL} />
+              <Box sx={{ ...loadingContainerStyle }}>
+                {imageUploadLoading && <CircularProgress size="1.5rem" />}
+              </Box>
               <input
                 accept="image/*"
                 style={inputStyle}
@@ -91,6 +106,7 @@ function EditProfileModal({ btnStyle }: { btnStyle: { width: string } }) {
                         type: "AvatarURLFunction",
                         func: setAvatarUrl,
                       },
+                      setLoading: setImageUploadLoading,
                     });
                 }}
               />

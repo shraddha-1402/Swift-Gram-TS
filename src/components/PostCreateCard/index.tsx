@@ -7,6 +7,7 @@ import {
   Avatar,
   Paper,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -42,6 +43,7 @@ const PostCreateCard = ({
       ? { postContent: "", postImageURL: "" }
       : { postContent: post.content, postImageURL: post.imageURL }
   );
+  const [imageUploadLoading, setImageUploadLoading] = useState(false);
   const { user: authUser, token } = useAppSelector((store) => store.auth);
   if (token === null || authUser === null)
     throw new Error("token or authUser null");
@@ -108,6 +110,22 @@ const PostCreateCard = ({
               }
             />
           </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {imageUploadLoading && (
+              <CircularProgress
+                size="2rem"
+                sx={{
+                  marginTop: "1rem",
+                }}
+              />
+            )}
+          </Box>
           {!!postImageURL && (
             <Box
               sx={{
@@ -151,6 +169,7 @@ const PostCreateCard = ({
                         type: "PostDataFunction",
                         func: setPostData,
                       },
+                      setLoading: setImageUploadLoading,
                     });
                 }}
               />
