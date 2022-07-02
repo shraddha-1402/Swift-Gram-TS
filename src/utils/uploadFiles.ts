@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
+import { toast } from "react-toastify";
+import { isJSError } from "../types/typeGuards";
 import { SetImageURLFunction } from "../types/types";
 
 const uploadImage = async ({
@@ -36,6 +38,9 @@ const uploadImage = async ({
       })
       .catch((error) => {
         console.error(error);
+        if (isJSError(error))
+          if (error.message === "Network request failed")
+            toast.error("Please check internet connection");
       })
       .finally(() => setLoading(false));
   }
